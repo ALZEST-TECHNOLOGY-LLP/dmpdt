@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block pagetitle %}  <title>USER LIST-PREDICTIVE MAINTENANCE SYSTEM </title>{% endblock pagetitle %}
+{% block navt %}  <a class="col navbar-brand  mr-auto font-weight-bold" href="/userlist">USER LIST-PMS</a>{% endblock navt %}
+{% load static %}
+{% block selectdropdown %}<a class="col navbar-brand  mr-auto font-weight-bold" href="/" ><i class="fas fa-home    "></i></a>{% endblock selectdropdown %}
+{% block mainbody %}
+
+<div class="d-flex justify-content-center">
+<div class="card col-sm-1s2 mx-auto">
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <table id="my-table" class="table">
+          <thead class="bg-primary text-light">
+              <tr>
+                  <th scope="col" class="border-bottom ">First Name</th>
+                  <th scope="col" class="border-bottom ">Last Name</th>
+                  <th scope="col" class="border-bottom border-left border-light">User Name</th>
+                  <th scope="col" class="border-bottom border-left border-light">User Email</th>
+                  <th scope="col" class="border-bottom border-left border-light">Active</th>
+                  <th scope="col" class="border-bottom border-left border-light">Date Joined</th>
+                  <th scope="col" class="border-bottom border-left border-light">Last Login</th>
+                  <th scope="col" class="border-bottom border-left border-light">Is Admin</th>
+                  <th scope="col" class="border-bottom border-left border-light">Actions</th>
+
+              </tr>
+          </thead>
+          <tbody>
+              {% for user in user %}
+                  <tr>
+                      <td class="border-bottom border-left border-right border-info">{{user.first_name }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.last_name }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.username }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.email }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.is_active }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.date_joined }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.last_login }}</td>
+                      <td class="border-bottom border-right border-info">{{ user.is_superuser }}</td>
+                      <td class="border-bottom border-right border-info" id="action" >
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editDeviceModal{{ user.id }}">
+                          <span data-toggle="tooltip" data-placement="bottom" data-title="Edit Data"><i class="fas fa-edit"></i></span>
+                          
+                      </button>
+                      <!--edit modal-->
+                     <div class="modal fade" id="editDeviceModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="editDeviceModal{{ user.id }}Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editDeviceModal{{ user.id }}Label">Edit Device Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{% url 'edit_user' user.id %}">
+                                        {% csrf_token %}
+                                        <div class="input-group mb-5">
+                                                        <div class="input-group-append">
+                                                            
+                                                            <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="First Name"><i class="fas fa-user"></i></span>
+                                                        </div>
+
+                                                        <input type="name" id="fname" name="fname" class="form-control input_user"  value="{{user.first_name}}">
+                                                    </div>
+                                            <div class="input-group mb-5 mt-5">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"data-toggle="tooltip" data-placement="bottom" data-title="Last Name"><i class="fas fa-user"></i></span>
+                                                        </div>
+                                                        <input type="name" id="lname" name="lname" class="form-control input_user"  value="{{user.last_name}}">
+                                                    </div>
+                                                      
+                                            <div class="input-group mb-5 mt-5">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="User Name" ><i class="fas fa-at"></i></span>
+                                                        </div>
+                                                        <input type="name" id="uname" name="uname" class="form-control input_user"  value="{{user.username}}">
+                                                    </div>
+                            
+                                            <div class="input-group mb-5 " >
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="User Email"><i class="fas fa-envelope"></i></span>
+                                                    </div>
+                                                    <input type="email" name="email" class="form-control input_user" value="{{user.email}}">
+                                                </div>
+                                            <div class="input-group mb-5 " >
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="Is Active"><i class="fas fa-user-lock"></i></span>
+                                                    </div>
+                                                    <input type="is_active" name="is_active" class="form-control input_user" value="{{user.is_active}}">
+                                                </div>
+                                            <div class="input-group mb-5 " >
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="Is Superuser"><i class="fas fa-user-cog"></i></span>
+                                                    </div>
+                                                    <input type="is_superuser" name="is_superuser" class="form-control input_user" value="{{user.is_superuser}}">
+                                                </div>
+
+                                                <div class="input-group mb-5 mt-5">
+                                                        <div class="input-group-append">
+
+                                                            <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="User PassWord"><i class="fas fa-key"></i></span>
+                                                        </div>
+                                                        <input type="password" id="password1" name="password1" class="form-control input_user"  value="{{user.password}}" >
+                                                    </div>
+                            
+                                                        <div class="input-group mb-5 mt-5">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" data-toggle="tooltip" data-placement="bottom" data-title="Confirm PassWord"><i class="fas fa-key"></i></span>
+                                                        </div>
+                                                        <input type="password" id="password2" name="password2" class="form-control input_user"  value="{{user.password}}">
+                                                    </div>
+                            
+                            
+                            
+                                        <button type="submit" name="Signup" class="btn btn-primary">Save changes</button>
+                                      </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                          
+                          <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ user.id }}"><i class="fas fa-trash"></i></button>
+                       
+                          <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="deleteModalLabel">Delete User</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          Are you sure you want to delete user {{ user.username }}?
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                          <form action="{% url 'delete_user' user.id %}" method="POST">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+              {% empty %}
+                  <tr>
+                      <td colspan="4">No users found.</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+      <button type="button" id="export-button" class="btn btn-success"><i class="fas fa-download    "></i>  Export to Excel</button>
+  </div>
+</div>
+
+
+
+</div>
+
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+{% endblock mainbody %}
+{% block bselectdropdown %}<a class="col navbar-brand  mr-auto font-weight-bold" href="/" ><i class="fas fa-home    "></i></a>{% endblock bselectdropdown %}

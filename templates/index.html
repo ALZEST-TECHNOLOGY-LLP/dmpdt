@@ -1,0 +1,649 @@
+{% extends 'base.html' %}
+{% block pagetitle %}  <title>DASHBOARD-PREDICTIVE MAINTENANCE SYSTEM </title>{% endblock pagetitle %}
+{% block navt %} <a class="navbar-brand text-center font-weight-bold" href="/" >DASHBOARD-PMS</a>{% endblock navt %}
+{% load static %}
+
+{% block selectdropdown %}
+     <div class="float-left">
+                                  <form>
+                                  <select class="form-control" name="dcategory" id="dcategory" >
+                                  <option value="" selected disabled>Select Device</option>
+
+                                {% for dn in device%}
+                                
+                                <option value="{{dn.id}}">{{dn.device_id}}
+                                
+                                {%endfor%}
+                                
+                                
+                                </option>
+                                
+                                  </select>
+                                  </form>
+                                </div>
+                                
+ <script>
+
+
+          
+ // select option
+ $(document).ready(function() {
+  $('#dcategory').change(function() {
+     gdid = $(this).val();
+    console.log(gdid);
+    
+ });
+ });
+ 
+   </script>
+ 
+  
+                                {% endblock selectdropdown %}
+{% block bselectdropdown %}
+     <div class="float-left">
+                                  <form name="selectdevices" id="selectdevices" action="" method="GET">
+                                  <select class="form-control" name="devices" id="devices" form="selectdevices">
+                                  <option value="" selected disabled>Select Device</option>
+
+                                {% for dn in device%}
+                                
+                                <option value="{{dn.id}}">{{dn.device_id}}
+                                
+                                {%endfor%}
+                                
+                                
+                                </option>
+                                
+                                  </select>
+                                  </form>
+                                </div>
+                                
+ 
+  
+                                {% endblock bselectdropdown %}
+
+<!-- 
+<script>
+  if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+  navigator.serviceWorker.register('/sw.js')
+        .then(registration => {
+          console.log(`Service Worker registered! Scope: ${registration.scope}`);
+        })
+        .catch(err => {
+          console.log(`Service Worker registration failed: ${err}`);
+        });
+   });
+  }
+
+
+
+</script> -->
+
+
+
+
+{% block mainbody %}
+
+
+{% if request.user.is_superuser %}
+<section class="container-fluid">
+<br>
+<br>
+<section class="container-fluid ">
+  <div class="row">
+    <div class="col-xl-3 col-sm-6 col-12"> 
+      <div class="card shadow">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-desktop fa-3x text-danger font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3>{{devicec}}</h3>
+                <span>Registered Device</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+      <div class="card shadow">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-desktop fa-3x text-success font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3>{{deviceconline}}</h3>
+                <span>Online Device</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12"> 
+      <div class="card shadow">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-user-alt fa-3x text-danger font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3>{{userc}}</h3>
+                <span>Registered User</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 col-12">
+      <div class="card shadow">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="media d-flex">
+              <div class="align-self-center">
+                <i class="fas fa-user-alt fa-3x text-success font-large-2 float-left"></i>
+              </div>
+              <div class="media-body text-right">
+                <h3>{{usercactive}}</h3>
+                <span>Active User</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<section class="mt-sm-5 row justify-content-center align-items-center">
+<div class="shadow col-md-8 card text-center">
+  <div class="card-body">
+    <h4 class="card-title">Vehicles Location</h4>
+    <div class="card-body">
+      {{map| safe}}
+    </div>
+  </div>
+</div>
+</section>
+
+</section>
+{% endif %}
+<section class="mt-sm-5 shadow row justify-content-center align-items-center">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="btn-group-vertical justify-content-center w-100" >
+            <button type="button" onclick="vibration()" class="btn btn-primary btn-lg btn-md-3 mb-4 fs-2">Vibration Sensor</button>
+            <button type="button" onclick="gaslink()" class="btn btn-primary btn-lg mb-4 fs-2">Gas Sensor</button>
+            <button type="button" onclick="tempa()" class="btn btn-primary btn-lg mb-4 fs-2">Ambiant Temperature  Sensor</button>
+            <button type="button" onclick="humidity()" class="btn btn-primary btn-lg mb-4 fs-2">Humidity Sensor</button>
+            <button type="button" onclick="flexangle()" class="btn btn-primary btn-lg mb-4 fs-2">Flex Sensor</button>
+            <button type="button" onclick="voltage()" class="btn btn-primary btn-lg mb-4 fs-2">Dc Voltage Sensor</button>
+            <button type="button" onclick="tempd()" class="btn btn-primary btn-lg mb-4 fs-2">Temperature Sensor</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title"></h3>
+          <div id="chart_div"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section id="table" class="d-flex justify-content-center">
+  <div class="card col-sm-6 mx-auto">
+    <div class="card-body">
+      <h3 class="text-center card-title">Sensor Data Table</h3>
+      <div class="table-responsive-sm">
+      <table id="my-tableb" class="table">
+        <thead class="bg-primary text-light">
+          <tr>
+            <th scope="col" class="border-bottom ">SensorData</th>
+            <th scope="col" class="border-bottom border-left border-light">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row"></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td scope="row"></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" id="export-buttonb" class="btn btn-success"><i class="fas fa-download"></i>  Export to Excel</button>
+    </div>
+  </div>
+</section>
+<script>
+  const exportBtnb = document.getElementById('export-buttonb');
+  exportBtnb.addEventListener('click', () => {
+    var table2excel = new Table2Excel();
+    table2excel.export(document.querySelectorAll("#my-tableb"));
+        // Reload the current page
+        location.reload();
+
+  });
+
+function vibration() {
+    google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChartv);
+
+function drawChartv() {
+    $.ajax({
+         url: '/selectvibdata/' + gdid,
+        dataType: 'json',
+        success: function (response) {
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'time');
+          data.addColumn('number', 'vibration');
+        for (var i = 0; i < response.length; i++) {
+          var row = [response[i].timed, parseFloat(response[i].vibration)];
+          data.addRow(row);
+        }
+        var options = {
+          title: 'Vibration Sensor',
+        vAxis: { title:'static Vibration Value'},
+        
+       
+      };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+        chart.draw(data, options);
+
+        var tableBody = $('#my-tableb tbody');
+        tableBody.empty();
+        $.each(response, function(index, value) {
+          var row = $('<tr/>');
+          row.append($('<td/>').html(value.vibration));
+          row.append($('<td/>').html(value.timed));
+          tableBody.append(row);
+        });
+
+
+            
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+        }
+    });
+}
+
+setInterval(drawChartv, 300000); // redraw the chart every 5 minutes
+
+  }  
+
+
+//gas Sensor
+
+
+function gaslink() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChartg);
+
+function drawChartg() {
+  $.ajax({
+       url: '/selectgasdata/' + gdid,
+      dataType: 'json',
+      success: function (response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'time');
+        data.addColumn('number', 'gaslink');
+      for (var i = 0; i < response.length; i++) {
+        var row = [response[i].timed, parseFloat(response[i].gaslink)];
+        data.addRow(row);
+      }
+      var options = {
+          title: 'Gas Sensor',
+        vAxis: { title:'PPM'},
+        colors: ['#e7711b']
+        
+       
+      };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+      chart.draw(data, options);
+
+      var tableBody = $('#my-tableb tbody');
+      tableBody.empty();
+      $.each(response, function(index, value) {
+        var row = $('<tr/>');
+        row.append($('<td/>').html(value.gaslink));
+        row.append($('<td/>').html(value.timed));
+        tableBody.append(row);
+      });
+
+
+          
+      },
+      error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+      }
+  });
+}
+
+setInterval(drawChartg, 300000); // redraw the chart every 5 minutes
+
+}  
+
+//tempa
+function tempa() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChartta);
+
+function drawChartta() {
+  $.ajax({
+       url: '/selecttempadata/' + gdid,
+      dataType: 'json',
+      success: function (response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'time');
+        data.addColumn('number', 'Temperature Ambiant');
+      for (var i = 0; i < response.length; i++) {
+        var row = [response[i].timed, parseFloat(response[i].temperaturea)];
+        data.addRow(row);
+      }
+      var options = {
+        title: 'Surrounding Temperature Sensor',
+      vAxis: { title:'Degree Celcius'},
+      colors: ['#e71110']
+      
+     
+    };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+      chart.draw(data, options);
+
+      var tableBody = $('#my-tableb tbody');
+      tableBody.empty();
+      $.each(response, function(index, value) {
+        var row = $('<tr/>');
+        row.append($('<td/>').html(value.temperaturea));
+        row.append($('<td/>').html(value.timed));
+        tableBody.append(row);
+      });
+
+
+          
+      },
+      error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+      }
+  });
+}
+
+setInterval(drawChartta, 300000); // redraw the chart every 5 minutes
+
+} 
+
+
+//humidity
+function humidity() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawCharth);
+
+function drawCharth() {
+  $.ajax({
+       url: '/selecthumiditydata/' + gdid,
+      dataType: 'json',
+      success: function (response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'time');
+        data.addColumn('number', 'Humidity');
+      for (var i = 0; i < response.length; i++) {
+        var row = [response[i].timed, parseFloat(response[i].humidity)];
+        data.addRow(row);
+      }
+      var options = {
+        title: 'Surrounding Humidity Sensor',
+      vAxis: { title:'g/m3'},
+      colors: ['#577111']
+      
+     
+    };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+      chart.draw(data, options);
+
+      var tableBody = $('#my-tableb tbody');
+      tableBody.empty();
+      $.each(response, function(index, value) {
+        var row = $('<tr/>');
+        row.append($('<td/>').html(value.humidity));
+        row.append($('<td/>').html(value.timed));
+        tableBody.append(row);
+      });
+
+
+          
+      },
+      error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+      }
+  });
+}
+
+setInterval(drawCharth, 300000); // redraw the chart every 5 minutes
+
+} 
+
+
+//flex
+function flexangle() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChartf);
+
+function drawChartf() {
+  $.ajax({
+       url: '/selectflexangledata/' + gdid,
+      dataType: 'json',
+      success: function (response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'time');
+        data.addColumn('number', 'flexangle');
+      for (var i = 0; i < response.length; i++) {
+        var row = [response[i].timed, parseFloat(response[i].fangle)];
+        data.addRow(row);
+      }
+      var options = {
+        title: 'Bend Angle Sensor',
+      vAxis: { title:'Angle'},
+      colors: ['#887111']
+      
+     
+    };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+      chart.draw(data, options);
+
+      var tableBody = $('#my-tableb tbody');
+      tableBody.empty();
+      $.each(response, function(index, value) {
+        var row = $('<tr/>');
+        row.append($('<td/>').html(value.fangle));
+        row.append($('<td/>').html(value.timed));
+        tableBody.append(row);
+      });
+
+
+          
+      },
+      error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+      }
+  });
+}
+
+setInterval(drawChartf, 300000); // redraw the chart every 5 minutes
+
+} 
+
+
+
+
+//voltage
+function voltage() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawChartvol);
+
+function drawChartvol() {
+  $.ajax({
+      url: '/selectvoldata/' + gdid,
+      dataType: 'json',
+      success: function (response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'time');
+        data.addColumn('number', 'voltage');
+      for (var i = 0; i < response.length; i++) {
+        var row = [response[i].timed, parseFloat(response[i].voltage)];
+        data.addRow(row);
+      }
+      var options = {
+        title: 'Dc Voltage Sensor',
+      vAxis: { title:'voltage'},
+      colors: ['#887111']
+      
+     
+    };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+      chart.draw(data, options);
+
+      var tableBody = $('#my-tableb tbody');
+      tableBody.empty();
+      $.each(response, function(index, value) {
+        var row = $('<tr/>');
+        row.append($('<td/>').html(value.voltage));
+        row.append($('<td/>').html(value.timed));
+        tableBody.append(row);
+      });
+
+
+          
+      },
+      error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+      }
+  });
+}
+
+setInterval(drawChartvol, 300000); // redraw the chart every 5 minutes
+
+} 
+
+
+//tempa
+function tempd() {
+  google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(drawCharttd);
+
+function drawCharttd() {
+  $.ajax({
+       url: '/selecttempddata/' + gdid,
+      dataType: 'json',
+      success: function (response) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'time');
+        data.addColumn('number', 'Temperature');
+      for (var i = 0; i < response.length; i++) {
+        var row = [response[i].timed, parseFloat(response[i].temperatured)];
+        data.addRow(row);
+      }
+      var options = {
+        title: 'Temperature Sensor',
+      vAxis: { title:'Degree Celcius'},
+      colors: ['#e71110']
+      
+     
+    };
+
+      var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+      chart.draw(data, options);
+
+      var tableBody = $('#my-tableb tbody');
+      tableBody.empty();
+      $.each(response, function(index, value) {
+        var row = $('<tr/>');
+        row.append($('<td/>').html(value.temperatured));
+        row.append($('<td/>').html(value.timed));
+        tableBody.append(row);
+      });
+
+
+          
+      },
+      error: function (xhr, status, error) {
+          console.log(xhr.responseText);
+      }
+  });
+}
+
+setInterval(drawCharttd, 300000); // redraw the chart every 5 minutes
+
+} 
+
+
+</script>
+
+{% comment %} 
+<script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+          datasets: [{
+              label: 'Sales',
+              data: [12, 19, 3, 5, 2, 3, 9],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 99, 132, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+</script> {% endcomment %}
+{% endblock mainbody %}

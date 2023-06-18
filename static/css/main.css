@@ -1,0 +1,252 @@
+
+    /* top switch */
+    
+    .anil_nepal{padding:20px 0px; width:100%; display:block;}
+    .switch {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 100px;
+        height: 30px;
+        padding: 3px;
+        margin: 0% 20% 0% 20%;
+        background: linear-gradient(to bottom, #eeeeee, #FFFFFF 25px);
+        background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF 25px);
+        border-radius: 18px;
+        box-shadow: inset 0 -1px white, inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        box-sizing: content-box;
+    }
+    label {
+        font-weight: inherit;
+    }
+    input[type=checkbox], input[type=radio] {
+        margin: 4px 0 0;
+    
+        line-height: normal;
+          -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0;
+    }
+    
+    
+    .switch-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        box-sizing: content-box;
+    }
+    .switch-left-right .switch-input:checked ~ .switch-label {
+        background: inherit;
+    }
+    .switch-input:checked ~ .switch-label {
+        background: #E1B42B;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+    .switch-left-right .switch-label {
+        overflow: hidden;
+    }
+    .switch-label, .switch-handle {
+        transition: All 0.3s ease;
+        -webkit-transition: All 0.3s ease;
+        -moz-transition: All 0.3s ease;
+        -o-transition: All 0.3s ease;
+    }
+    .switch-label {
+        position: relative;
+        display: block;
+        height: inherit;
+        font-size: 9px;
+        text-transform: uppercase;
+        background: #eceeef;
+        border-radius: inherit;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
+        box-sizing: content-box;
+    }
+    .switch-left-right .switch-input:checked ~ .switch-label:before {
+        opacity: 1;
+        left: 100px;
+    }
+    .switch-input:checked ~ .switch-label:before {
+        opacity: 0;
+    }
+    .switch-left-right .switch-label:before {
+        background: #eceeef;
+        text-align: left;
+        padding-left: 80px!important;
+    }
+    .switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+        width: 20px;
+        height: 20px;
+        top: 4px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 11px 0 0 0;
+        text-indent: -12px;
+        border-radius: 20px;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+    .switch-label:before {
+        content: attr(data-off);
+        right: 14px;
+        color: #aaaaaa;
+        text-shadow: 0 1px rgba(255, 255, 255, 0.5);
+    }
+    
+    span.switch-label:after {
+        content: attr(data-on);
+        left: 11px;
+        color: #FFFFFF;
+        text-shadow: 0 1px rgba(0, 0, 0, 0.2);
+        position: absolute;
+      
+    }
+    
+    .switch-label:before, .switch-label:after {
+        position: absolute;
+        top: 50%;
+        margin-top: -5px;
+        line-height: 1;
+        -webkit-transition: inherit;
+        -moz-transition: inherit;
+        -o-transition: inherit;
+        transition: inherit;
+        box-sizing: content-box;
+    }
+    
+    .switch-left-right .switch-input:checked ~ .switch-label:after {
+        left: 0!important;
+        opacity: 1;
+        padding-left: 20px;
+    }
+    
+    
+    .switch-input:checked ~ .switch-label:after {
+        opacity: 1;
+    }
+    
+    
+    .switch-left-right .switch-label:after {
+        text-align: left;
+        text-indent: 9px;
+        background: #0275d8 !important;
+        left: -100px!important;
+        opacity: 1;
+        width: 100%!important;
+     
+    }
+    .switch-left-right .switch-label:before, .switch-left-right .switch-label:after {
+        width: 20px;
+        height: 20px;
+        top: 4px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 11px 0 0 0;
+        text-indent: -12px;
+        border-radius: 20px;
+        box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+    .switch-input:checked ~ .switch-handle {
+        left: 74px;
+        box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    .switch-label, .switch-handle {
+        transition: All 0.3s ease;
+        -webkit-transition: All 0.3s ease;
+        -moz-transition: All 0.3s ease;
+        -o-transition: All 0.3s ease;
+    }
+    
+    .switch-handle {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 28px;
+        height: 28px;
+        background: linear-gradient(to bottom, #FFFFFF 40%, #f0f0f0);
+        background-image: -webkit-linear-gradient(top, #FFFFFF 40%, #f0f0f0);
+        border-radius: 100%;
+        box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .switch-handle:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -6px 0 0 -6px;
+        width: 12px;
+        height: 12px;
+        background: linear-gradient(to bottom, #eeeeee, #FFFFFF);
+        background-image: -webkit-linear-gradient(top, #eeeeee, #FFFFFF);
+        border-radius: 6px;
+        box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
+    }
+    
+   
+    
+
+    /* profile */
+
+/* .chat-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-block; }
+  @media only screen and (max-width: 767px) {
+    .chat-img {
+      width: 30px;
+      height: 30px; } }
+
+.chat-img-2 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 40px;
+  flex: 0 0 40px;
+  max-width: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: inline-block; }
+
+
+  .user-profile-area {
+    padding-bottom: 1rem;
+    z-index: 1;
+    position: relative; }
+  
+  .user-profile-area .dropdown-item {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem; }
+  
+  .user-profile-area .user-profile-heading {
+    width: 100%;
+    border-radius: 0;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    margin-bottom: 1.5rem; }
+    .user-profile-area .user-profile-heading .profile-img {
+      width: 70px;
+      height: 70px;
+      margin: auto; }
+      .user-profile-area .user-profile-heading .profile-img img {
+        border-radius: 50%; }
+  
+  .user-profile-area .profile-thumbnail {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50px;
+    flex: 0 0 50px;
+    max-width: 50px;
+    width: 50px; }
+  
+  .user-profile-area .profile-text h6 {
+    font-size: 16px;
+    margin-bottom: 0; }
+  
+  .user-profile-area .profile-text span {
+    font-size: 12px;
+    margin-bottom: 0;
+    display: block; } */
+  

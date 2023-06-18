@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+{% block pagetitle %}  <title>DEVICE LIST-PREDICTIVE MAINTENANCE SYSTEM </title>{% endblock pagetitle %}
+{% block navt %}  <a class="col navbar-brand  mr-auto font-weight-bold" href="/device_details">DEVICE LIST-PMS</a>{% endblock navt %}
+{% load static %}
+{% block selectdropdown %}<a class="col navbar-brand  mr-auto font-weight-bold" href="/" ><i class="fas fa-home    "></i></a>{% endblock selectdropdown %}
+{% block mainbody %}
+
+<div class="d-flex justify-content-center">
+<div class="card col-sm-6 mx-auto">
+  <div class="card-body">
+    <div class="table-responsive-sm">
+      <table id="my-table" class="table">
+          <thead class="bg-primary text-light">
+              <tr>
+                  <th scope="col" class="border-bottom ">Device ID</th>
+                  <th scope="col" class="border-bottom border-left border-light">User</th>
+                  <th scope="col" class="border-bottom border-left border-light">Vehicle Name</th>
+                  <th scope="col" class="border-bottom border-left border-light">Vehicle Number</th>
+                  <th scope="col" class="border-bottom border-left border-light">Is Online</th>
+                  <th scope="col" class="border-bottom border-left border-light">Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for device in devices %}
+                  <tr>
+                      <td class="border-bottom border-left border-right border-info">{{ device.device_id }}</td>
+                      <td class="border-bottom border-right border-info">{{ device.user.username }}</td>
+                      <td class="border-bottom border-right border-info">{{ device.vehicle_name }}</td>
+                      <td class="border-bottom border-right border-info">{{ device.vehicle_number }}</td>
+                      <td class="border-bottom border-right border-info">{{ device.is_online }}</td>
+                      <td class="border-bottom border-right border-info" id="action" >
+                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#editDeviceModal{{ device.id }}">
+                          <span data-toggle="tooltip" data-placement="bottom" data-title="Edit Data"><i class="fas fa-edit"></i></span>
+                          
+                      </button>
+                      <!--edit modal-->
+                      <div class="modal fade" id="editDeviceModal{{ device.id }}" tabindex="-1" role="dialog" aria-labelledby="editDeviceModal{{ device.id }}Label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editDeviceModal{{ device.id }}Label">Edit Device Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="POST" action="{% url 'edit_device' device.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label for="deviceid">User</label>
+                                            <select class="form-control" name="userid" id="userid" >
+                                              <option value="" selected disabled>Select User </option>
+                  
+                                            {% for ud in user%}
+                                            
+                                            <option value="{{ud.id}}">{{ud.username}}
+                                            
+                                            {%endfor%}
+                                            
+                                            
+                                            </option>
+                                            
+                                              </select>
+                                          
+                                            </div>
+                                        <div class="form-group">
+                                            <label for="deviceid">Device ID</label>
+                                            <input type="text" class="form-control" id="deviceid" name="deviceid" value="{{ device.device_id }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="vehiclename">Vehicle Name</label>
+                                            <input type="text" class="form-control" id="vehiclename" name="vehiclename" value="{{ device.vehicle_name }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="vehiclenumber">Vehicle Number</label>
+                                            <input type="text" class="form-control" id="vehiclenumber" name="vehiclenumber" value="{{ device.vehicle_number }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="vehiclenumber">Is Online </label>
+                                            <input type="text" class="form-control" id="is_online" name="is_online" value="{{ device.is_online}}">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                          
+                          <!--<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ device.id }}"><i class="fas fa-trash"></i></button>
+                       
+                          <div class="modal fade" id="deleteModal{{ device.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="deleteModalLabel">Delete Device</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          Are you sure you want to delete device {{ device.device_id }}?
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                          <form action="{% url 'delete_device' device.id %}" method="POST">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>-->
+                      </td>
+                  </tr>
+              {% empty %}
+                  <tr>
+                      <td colspan="4">No devices found.</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+      <button type="button" id="export-button" class="btn btn-success"><i class="fas fa-download    "></i>  Export to Excel</button>
+  </div>
+</div>
+
+
+</div>
+
+<script>
+  $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+{% endblock mainbody %}
+{% block bselectdropdown %}<a class="col navbar-brand  mr-auto font-weight-bold" href="/" ><i class="fas fa-home    "></i></a>{% endblock bselectdropdown %}

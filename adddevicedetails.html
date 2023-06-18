@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block pagetitle %}  <title>ADD DEVICE-PREDICTIVE MAINTENANCE SYSTEM </title>{% endblock pagetitle %}
+{% block navt %} <a class="navbar-brand  mr-auto font-weight-bold" href="/" style="margin-left:27%;">ADD DEVICE-PMS</a>{% endblock navt %}
+{% load static %}
+
+
+
+  
+                            
+
+                            <!-- <div class="text-center" style="vertical-align:middle;"> -->
+                            <!-- <div class=" mx-auto border border-primary col-md-10" style="vertical-align:top;"> -->
+{% block mainbody %}            
+                                    <br>
+                                    <br>
+
+                            <section id="display_context">
+                            <div class="col-md-5 container">
+    <div class="card">
+        
+        <div class="card-body text-center">
+            <h4 class="card-title text-center">Add Device Details</h4>
+	        <form action="/adddevicedetails/" class="was-validated" method="POST">
+          {% csrf_token %}
+                <div class="input-group mt-3 mb-5 " >
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <select class="form-control" name="userid" id="userid" >
+                            <option value="" selected disabled>Select User </option>
+
+                          {% for ud in userdata%}
+                          
+                          <option value="{{ud.id}}">{{ud.username}}
+                          
+                          {%endfor%}
+                          
+                          
+                          </option>
+                          
+                            </select>
+                    </div>
+                <div class="input-group mt-3 mb-5 " >
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="name" name="deviceid" id="deviceid" class="form-control input_user" placeholder="Enter device id" >
+                    </div>
+                <div class="input-group mt-3 mb-5 " >
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-car-side"></i></span>
+                        </div>
+                        <input type="name" name="vehiclename" id="vehiclename" class="form-control input_user" placeholder="Enter Vehicle Name" >
+                    </div>
+                <div class="input-group mt-3 mb-5 " >
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-car-alt"></i></span>
+                        </div>
+                        <input type="name" name="vehiclenumber" id="vehiclenumber" class="form-control input_user" placeholder="Enter Vehicle Number" >
+                    </div>
+                    
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+                
+           
+        </div>
+    </div>
+</div>
+                            </section>
+
+
+                            {% endblock mainbody %}       
+
+
+

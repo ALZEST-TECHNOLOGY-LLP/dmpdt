@@ -1,0 +1,124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>PSENSORS</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" type="text/css">
+  <script src="{% static 'js/jquery.min.js'%}"></script>
+  <script src="{% static 'js/popper.min.js'%}"></script>
+  {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> {% endcomment %}
+  <script src="{% static 'js/bootstrap.min.js'%}"></script>
+
+  <link rel="stylesheet" href="{% static 'fontawesome/css/all.css'%}" type="text/css">
+
+  <script src="{% static 'fontawesome/js/all.js'%}" crossorigin="anonymous"></script>
+
+<!--  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/favicon/apple-icon-57x57.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="60x60" href="{% static 'img/favicon/apple-icon-60x60.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/favicon/apple-icon-72x72.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/favicon/apple-icon-76x76.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="114x114" href="{% static 'img/favicon/apple-icon-114x144.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="120x120" href="{% static 'img/favicon/apple-icon-120x120.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="144x144" href="{% static 'img/favicon/apple-icon-144x144.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="152x152" href="{% static 'img/favicon/apple-icon-152x152.png'%}">-->
+<!--<link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/favicon/apple-icon-180x180.png'%}">-->
+<!--<link rel="icon" type="image/png" sizes="192x192"  href="{% static 'img/android-icon-192x192.png'%}">-->
+<!--<link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon/favicon-32x32.png"'%}">-->
+<!--<link rel="icon" type="image/png" sizes="96x96" href="{% static 'img/favicon/favicon-96x96.png'%}">-->
+<!--<link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon/favicon-16x16.png'%}">-->
+<!--<link rel="manifest" href="{% static 'img/favicon/manifest.json'%}">-->
+<!--<meta name="msapplication-TileColor" content="#ffffff">-->
+<!--<meta name="msapplication-TileImage" content="{% static 'img/favicon/ms-icon-144x144.png'%}">-->
+<!--<meta name="theme-color" content="#ffffff">-->
+
+  <style>
+  	 .brand_logo_container {
+			position: absolute;
+			height: 35%;
+			width: 35%;
+			top: -15%;
+			border-radius: 50%;
+			background: #00488bc0;
+			padding: 0.9%;
+			text-align: center;
+
+      
+		}
+		.brand_logo {
+			height: 100%;
+			width: 100%;
+			border-radius: 50%;
+			border: 5px solid white;
+		} 
+
+  </style>
+  
+</head>
+<body>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} m-2" id="msg" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %} 
+
+             <br>
+             <br>
+  
+<div class="container  mt-md-5"  >
+  <div class="card shadow text-center bg-light text-dark col-md-4 " style=" margin:10% auto;">
+    <div class="card-body">
+
+        <div class="d-flex justify-content-center shadow">
+            <div class="brand_logo_container mb-5 shadow ">
+              <img src="{% static 'img/user_icon_001.jpg'%}" class="brand_logo" alt="Logo">
+            </div>
+          </div>
+
+	        <form action="/account/login/" class="was-validated" method="POST">
+          {% csrf_token %}
+                <div class="input-group mb-5 " style="margin-top: 35%;">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="name" name="username" id="username" class="form-control input_user" placeholder="Enter Username" >
+                    </div>
+                    
+                    <div class="input-group mb-5 mt-5">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" name="password" id="password" class="form-control input_user"  placeholder="Enter Your Password" >
+                        </div>
+
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+          <div class="mt-4">
+              <div class="d-flex justify-content-center links">
+                <a href="/useraccount/resetpassword/">Forgot your password?</a>
+              </div>
+            </div>
+  </div>
+  
+  </div>
+
+        </div>
+
+</div>
+ <script>
+    setTimeout(function(){
+      if ($('#msg').length > 0) {
+        $('#msg').remove();
+      }
+    }, 10000)
+  </script> 
+
+</body>
+</html>

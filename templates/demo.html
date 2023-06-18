@@ -1,0 +1,38 @@
+def export_excel(request):
+    # Read the HTML table using pandas
+    df = pd.read_html(str(request.POST['table']))[0]
+
+    # Remove the last column containing the action buttons
+    df.drop(df.columns[-1], axis=1, inplace=True)
+
+    # Create a BytesIO object to stream the data to an Excel file
+    output = io.BytesIO()
+
+    # Create a workbook and worksheet using xlsxwriter
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet()
+
+    # Write the data to the worksheet
+    for i, row in enumerate(df.values):
+        for j, value in enumerate(row):
+            worksheet.write(i, j, str(value))
+
+    # Close the workbook
+    workbook.close()
+
+    # Reset the buffer position to the beginning
+    output.seek(0)
+
+    # Set the file name and content type for the response
+    filename = "exported_data.xlsx"
+    content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+    # Create the response object and set the content type and file name
+    response = HttpResponse(content_type=content_type)
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    # Write the file to the response
+    response.content = output.getvalue()
+
+    # Return the response
+    return response

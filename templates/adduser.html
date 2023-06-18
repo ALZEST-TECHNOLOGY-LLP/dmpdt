@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block pagetitle %}  <title>DEVICE LIST-PREDICTIVE MAINTENANCE SYSTEM </title>{% endblock pagetitle %}
+{% block navt %}  <a class="col navbar-brand  mr-auto font-weight-bold" href="/device_details">DEVICE LIST-PMS</a>{% endblock navt %}
+{% load static %}
+{% block selectdropdown %}<a class="col navbar-brand  mr-auto font-weight-bold" href="/" ><i class="fas fa-home    "></i></a>{% endblock selectdropdown %}
+{% block mainbody %}
+
+
+
+             <br>
+
+  
+<div class="container mt-3 text-center col-md-6 "  >
+  <div class="card">
+    <div class="card-body text-center">
+        <h4 class="card-title text-center">Add User Details</h4>
+	        <form action="/adduser/" method="POST" class="was-validated">
+            {% csrf_token %}
+            <div class="input-group mb-5">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="name" id="fname" name="fname" class="form-control input_user"  placeholder="Enter Your First Name" required >
+                        </div>
+                <div class="input-group mb-5 mt-5">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="name" id="lname" name="lname" class="form-control input_user"  placeholder="Enter Your Last Name" required >
+                        </div>
+                          
+                <div class="input-group mb-5 mt-5">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-at"></i></span>
+                            </div>
+                            <input type="name" id="uname" name="uname" class="form-control input_user"  placeholder="Enter Your Username" required >
+                        </div>
+
+                <div class="input-group mb-5 " >
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="email" name="email" class="form-control input_user" placeholder="Enter Email Id" required>
+                    </div>
+                    
+
+                    
+                        
+                        
+                    <div class="input-group mb-5 mt-5">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" id="password1" name="password1" class="form-control input_user"  placeholder="Enter Your Password" required >
+                        </div>
+
+                            <div class="input-group mb-5 mt-5">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" id="password2" name="password2" class="form-control input_user"  placeholder="Enter Password Again" required>
+                        </div>
+
+
+
+            <button type="submit" name="Signup" class="btn btn-primary">Signup</button>
+          </form>
+
+
+  </div>
+  
+  </div>
+
+        </div>
+
+</div>
+
+{% endblock mainbody %}
+{% block bselectdropdown %}<a class="col navbar-brand  mr-auto font-weight-bold" href="/" ><i class="fas fa-home    "></i></a>{% endblock bselectdropdown %}
+
